@@ -20,17 +20,26 @@ public class test : MonoBehaviourEx<test>
         a.b = 2;
         string json = this.GetUtility<IJsonHelper>().ToJson(a);
         Debug.Log(json);
-
-        HttpRestful.Instance.Get("https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v2/?key=28582A112299D03C6C51E463A1F15081&steamids=76561199546918606",(
-            (b, s) =>
+        
+        this.GetUtility<IHttpHelper>().Get("https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v2/?key=28582A112299D03C6C51E463A1F15081&steamids=76561199546918606",(
+            (s) =>
             {
-                if (b)
-                {
-                    ui_txt.text = s;
+                ui_txt.text = s;
                     
-                    Debug.Log(s);
-                }
+                Debug.Log(s);
+              
             }));
+
+        // HttpRestful.Instance.Get("https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v2/?key=28582A112299D03C6C51E463A1F15081&steamids=76561199546918606",(
+        //     (b, s) =>
+        //     {
+        //         if (b)
+        //         {
+        //             ui_txt.text = s;
+        //             
+        //             Debug.Log(s);
+        //         }
+        //     }));
     }
 
   

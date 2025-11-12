@@ -13,5 +13,6 @@ public class SteamEx : Architecture<SteamEx>
         
         //以下是框架通用，换Architecture的话一起复制过去
         this.RegisterUtility<IJsonHelper>(new JsonEx());
+        this.RegisterUtility<IHttpHelper>(HttpRestful.Instance);
     }
 }
