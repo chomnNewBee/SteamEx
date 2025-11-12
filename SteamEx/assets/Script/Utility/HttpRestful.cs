@@ -2,25 +2,13 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
+using QFramework;
 using UnityEngine;
 using UnityEngine.Networking;
 
-public class HttpRestful : MonoBehaviour
+public class HttpRestful : PersistentMonoSingleton<HttpRestful>
 {
-    private static HttpRestful _instance;
-    public static HttpRestful Instance
-    {
-        get
-        {
-            if (_instance == null)
-            {
-                GameObject goRestful = new GameObject("HttpRestful");
-                _instance = goRestful.AddComponent<HttpRestful>();
-                DontDestroyOnLoad(goRestful);
-            }
-            return _instance;
-        }
-    }
+   
 
     // 默认超时时间（秒）
     public float defaultTimeout = 10f;
