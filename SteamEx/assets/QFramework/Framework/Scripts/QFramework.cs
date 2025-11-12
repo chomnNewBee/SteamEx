@@ -153,8 +153,12 @@ namespace QFramework
             }
         }
 
-        public void RegisterUtility<TUtility>(TUtility utility) where TUtility : IUtility =>
+        public void RegisterUtility<TUtility>(TUtility utility) where TUtility : IUtility
+        {
+            utility.SetArchitecture(this);
             mContainer.Register<TUtility>(utility);
+            
+        }
 
         public TSystem GetSystem<TSystem>() where TSystem : class, ISystem => mContainer.Get<TSystem>();
 
@@ -280,7 +284,7 @@ namespace QFramework
 
     #region Utility
 
-    public interface IUtility
+    public interface IUtility : ICanGetUtility, ICanSetArchitecture
     {
     }
 
@@ -299,6 +303,19 @@ namespace QFramework
         ICanSendEvent, ICanSendCommand, ICanSendQuery
     {
         TResult Execute();
+    }
+
+    public abstract class AbstractUtility : IUtility
+    {
+        private IArchitecture mArchitecture;
+        public IArchitecture GetArchitecture()
+        {
+            return mArchitecture;
+        }
+        public void SetArchitecture(IArchitecture architecture)
+        {
+            mArchitecture = architecture;
+        }
     }
 
     public abstract class AbstractCommand : ICommand

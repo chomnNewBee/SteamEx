@@ -7,7 +7,7 @@ namespace Script.ChomnFramework.Utility
           string ToJson(object obj);
           T FromJson<T>(string json);
      }
-     public class JsonEx: IJsonHelper
+     public class JsonEx: AbstractUtility,IJsonHelper
      {
           public JsonEx()
           {

@@ -20,10 +20,48 @@ namespace Script.ChomnFramework.Utility
             Action<bool, string> actionResult, float timeout = 10f);
 
     }
-    public class HttpRestful : PersistentMonoSingleton<HttpRestful>,IHttpHelper
+
+    public class HttpHelpEx : AbstractUtility, IHttpHelper
+    {
+        public void Get(string url, Action<bool, string> actionResult)
+        {
+            HttpRestful.Instance.Get(url, actionResult);
+        }
+
+        public void Get(string url, Action<bool, string> actionResult, float timeout)
+        {
+            HttpRestful.Instance.Get(url, actionResult, timeout);
+        }
+
+        public void Get(string url, Action<string> actionResult, Action<string> actionFail, float timeout)
+        {
+            HttpRestful.Instance.Get(url, actionResult, actionFail, timeout);
+        }
+
+        public void Get(string url, Action<string> actionResult, Action<string> actionFail = null)
+        {
+            HttpRestful.Instance.Get(url, actionResult, actionFail);
+        }
+
+        public void Post(string url, string jsonData, Action<bool, string> actionResult)
+        {
+            HttpRestful.Instance.Post(url, jsonData, actionResult);
+        }
+
+        public void Post(string url, string jsonData, Action<bool, string> actionResult, float timeout)
+        {
+            HttpRestful.Instance.Post(url, jsonData, actionResult, timeout);
+        }
+
+        public void PostWithHeaders(string url, string jsonData, Dictionary<string, string> headers, Action<bool, string> actionResult, float timeout = 10)
+        {
+            HttpRestful.Instance.PostWithHeaders(url, jsonData, headers, actionResult, timeout);
+        }
+    }
+    public class HttpRestful : PersistentMonoSingleton<HttpRestful>
     {
    
-
+        
         // 默认超时时间（秒）
         public float defaultTimeout = 10f;
 
@@ -34,6 +72,7 @@ namespace Script.ChomnFramework.Utility
         public void Get(string url, Action<bool, string> actionResult)
         {
             Get(url, actionResult, defaultTimeout);
+            
         }
 
         public void Get(string url, Action<string> actionResult, Action<string> actionFail, float timeout)

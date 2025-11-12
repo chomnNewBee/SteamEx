@@ -19,13 +19,14 @@ public class test : MonoBehaviourEx<test>
     {
         base.StartEx();
        
-        this.SendCommand(new GetUserInfoCmd("76561199469130560"));
-        this.RegisterEvent<OnUserInfoUpdate>((update =>
-        {
-            ui_txt.text = this.GetModel<ISteamUserInfo>().userInfo.response.players[0].realname;
-        })).UnRegisterWhenGameObjectDestroyed(gameObject);
-
-
+        // this.SendCommand(new GetUserInfoCmd("76561199469130560"));
+        // this.RegisterEvent<OnUserInfoUpdate>((update =>
+        // {
+        //     ui_txt.text = this.GetModel<ISteamUserInfo>().userInfo.response.players[0].realname;
+        // })).UnRegisterWhenGameObjectDestroyed(gameObject);
+        this.GetUtility<ILocalStorage>().SetItem("testItem", new a() { b = 123 });
+        a item = this.GetUtility<ILocalStorage>().GetItem<a>("testItem");
+        Debug.Log(item.b);
     }
 
   

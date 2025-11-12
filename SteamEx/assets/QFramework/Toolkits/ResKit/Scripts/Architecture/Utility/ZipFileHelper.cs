@@ -13,7 +13,7 @@ using UnityEngine;
 
 namespace QFramework
 {
-    public class ZipFileHelper : IUtility
+    public class ZipFileHelper : AbstractUtility
     {
         private List<string> mSearchDirList = new List<string>();
         private string mStreamingAssetsPath;

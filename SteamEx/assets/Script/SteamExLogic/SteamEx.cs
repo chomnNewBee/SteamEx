@@ -14,7 +14,8 @@ namespace Script.ChomnFramework
             
             //以下是框架通用，换Architecture的话一起复制过去
             this.RegisterUtility<IJsonHelper>(new JsonEx());
-            this.RegisterUtility<IHttpHelper>(HttpRestful.Instance);
+            this.RegisterUtility<IHttpHelper>(new HttpHelpEx());
+            this.RegisterUtility<ILocalStorage>(new LocalStorageEx());
         }
     }
 }
