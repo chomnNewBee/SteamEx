@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using QFramework;
 using Script.ChomnFramework;
 using Script.ChomnFramework.Utility;
+using Script.SteamExLogic.Command;
+using Script.SteamExLogic.Model;
 using TMPro;
 using UnityEngine;
 
@@ -16,30 +18,14 @@ public class test : MonoBehaviourEx<test>
     public override void StartEx()
     {
         base.StartEx();
-        a a = new a();
-        a.b = 2;
-        string json = this.GetUtility<IJsonHelper>().ToJson(a);
-        Debug.Log(json);
-        
-        this.GetUtility<IHttpHelper>().Get("https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v2/?key=28582A112299D03C6C51E463A1F15081&steamids=76561199546918606",(
-            (s) =>
-            {
-                ui_txt.text = s;
-                    
-                Debug.Log(s);
-              
-            }));
+       
+        this.SendCommand(new GetUserInfoCmd("76561199469130560"));
+        this.RegisterEvent<OnUserInfoUpdate>((update =>
+        {
+            ui_txt.text = this.GetModel<ISteamUserInfo>().userInfo.response.players[0].realname;
+        })).UnRegisterWhenGameObjectDestroyed(gameObject);
 
-        // HttpRestful.Instance.Get("https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v2/?key=28582A112299D03C6C51E463A1F15081&steamids=76561199546918606",(
-        //     (b, s) =>
-        //     {
-        //         if (b)
-        //         {
-        //             ui_txt.text = s;
-        //             
-        //             Debug.Log(s);
-        //         }
-        //     }));
+
     }
 
   
