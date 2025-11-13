@@ -19,10 +19,20 @@ namespace Script.ChomnFramework.Utility
         void PostWithHeaders(string url, string jsonData, Dictionary<string, string> headers,
             Action<bool, string> actionResult, float timeout = 10f);
 
+        void GetTexture(string url, Action<Texture2D> cmp = null, System.Func<string, bool> check = null,
+            Action<UnityWebRequest> fail = null, int timeOut = 10);
+
+
+
     }
 
     public class HttpHelpEx : AbstractUtility, IHttpHelper
     {
+        public void GetTexture(string url, Action<Texture2D> cmp = null, System.Func<string, bool> check = null,
+            Action<UnityWebRequest> fail = null, int timeOut = 10)
+        {
+            HttpRestful.Instance.GetTexture(url, cmp, check, fail, timeOut);
+        }
         public void Get(string url, Action<bool, string> actionResult)
         {
             HttpRestful.Instance.Get(url, actionResult);
@@ -98,6 +108,31 @@ namespace Script.ChomnFramework.Utility
         {
             StartCoroutine(_Get(url, actionResult, timeout));
         }
+        
+        public void GetTexture(string url, Action<Texture2D> cmp = null, System.Func<string, bool> check = null, Action<UnityWebRequest> fail = null, int timeOut = 0)
+        {
+            StartCoroutine(_getTexture(url, cmp, check, fail, timeOut));
+        }
+        
+        
+        private IEnumerator _getTexture(string url, Action<Texture2D> cmp = null, System.Func<string, bool> check = null, Action<UnityWebRequest> fail = null, int timeOut = 0)
+        {
+            UnityWebRequest uwr = UnityWebRequestTexture.GetTexture(url);
+            uwr.timeout = timeOut;
+            yield return uwr.SendWebRequest();
+            if (check != null && !check(url)) { yield break; }
+            if (uwr.result == UnityWebRequest.Result.ConnectionError || uwr.result == UnityWebRequest.Result.ProtocolError)
+            {
+                Debug.LogError("Web Req Error;" + uwr.error + ", url:" + url);
+                if (fail != null) { fail(uwr); }
+            }
+            else
+            {
+                //获取并创建Texture
+                if (cmp != null) { cmp(((DownloadHandlerTexture)uwr.downloadHandler).texture); }
+            }
+        }
+        
 
         private IEnumerator _Get(string url, Action<bool, string> action, float timeout)
         {

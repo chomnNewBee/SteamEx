@@ -2,7 +2,7 @@ using QFramework;
 using Script.ChomnFramework.Utility;
 using Script.SteamExLogic.Model;
 
-namespace Script.ChomnFramework
+namespace Script.SteamExLogic
 {
     public class SteamEx : Architecture<SteamEx>
     {
@@ -16,6 +16,8 @@ namespace Script.ChomnFramework
             this.RegisterUtility<IJsonHelper>(new JsonEx());
             this.RegisterUtility<IHttpHelper>(new HttpHelpEx());
             this.RegisterUtility<ILocalStorage>(new LocalStorageEx());
+            this.RegisterUtility<IAsyncTaskQueueWaitEX>(new AsyncTaskQueueWaitEX());
+            this.RegisterUtility<IAsyncTaskQueueNoWaitEx>(new AsyncTaskQueueNoWaitEx());
         }
     }
 }

@@ -24,9 +24,43 @@ public class test : MonoBehaviourEx<test>
         // {
         //     ui_txt.text = this.GetModel<ISteamUserInfo>().userInfo.response.players[0].realname;
         // })).UnRegisterWhenGameObjectDestroyed(gameObject);
-        this.GetUtility<ILocalStorage>().SetItem("testItem", new a() { b = 123 });
-        a item = this.GetUtility<ILocalStorage>().GetItem<a>("testItem");
-        Debug.Log(item.b);
+        // this.GetUtility<ILocalStorage>().SetItem("testItem", new a() { b = 123 });
+        // a item = this.GetUtility<ILocalStorage>().GetItem<a>("testItem");
+        // Debug.Log(item.b);
+        // IAsyncTaskQueueWait manager = this.GetUtility<IAsyncTaskQueueWaitEX>().SpawnTaskManager();
+        // for (int i = 0; i < 10; i++)
+        // {
+        //     var j = i;
+        //     manager.AddTask((cmp =>
+        //     {
+        //         ActionKit.Delay(1, (() =>
+        //         {
+        //             Debug.Log(j);
+        //             cmp();
+        //         })).Start(this);
+        //     }));
+        // }
+        // manager.StartTask((() =>
+        // {
+        //     Debug.Log("执行完成");
+        // }));
+        // var manager = this.GetUtility<IAsyncTaskQueueNoWaitEx>().SpawnTaskManager();
+        // for (int i = 0; i < 10; i++)
+        // {
+        //     var j = i;
+        //     manager.AddTask((cmp =>
+        //     {
+        //         ActionKit.Delay(1+Random.value, (() =>
+        //         {
+        //             Debug.Log(j);
+        //             cmp();
+        //         })).Start(this);
+        //     }));
+        // }
+        // manager.StartTask((() =>
+        // {
+        //     Debug.Log("执行完成");
+        // }));
     }
 
   
