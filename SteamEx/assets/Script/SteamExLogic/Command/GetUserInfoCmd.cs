@@ -19,8 +19,14 @@ namespace Script.SteamExLogic.Command
         protected override void OnExecute()
         {
             string steamToken = this.GetModel<ISDKModel>().SteamToken;
-            string url = $"https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v2/?key={steamToken}&steamids={this.steamId}";
-            this.GetUtility<IHttpHelper>().Get(url, (ret =>
+            var param = new Dictionary<string, string>
+            {
+                { "key", steamToken },
+                { "steamids", this.steamId }
+            };
+            string url = this.GetModel<ISDKModel>().SteamUrl_GetUserInfo;
+            
+            this.GetUtility<IHttpHelper>().Get(url, param,(ret =>
             {
                 Debug.Log(ret);
                 SC_GetUserInfo userInfo = this.GetUtility<IJsonHelper>().FromJson<SC_GetUserInfo>(ret);

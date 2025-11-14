@@ -22,6 +22,9 @@ namespace Script.ChomnFramework.Utility
         void GetTexture(string url, Action<Texture2D> cmp = null, System.Func<string, bool> check = null,
             Action<UnityWebRequest> fail = null, int timeOut = 10);
 
+        void Get(string url, Dictionary<string, string> param, Action<string> actionResult,
+            Action<string> actionFail = null);
+
 
 
     }
@@ -33,6 +36,12 @@ namespace Script.ChomnFramework.Utility
         {
             HttpRestful.Instance.GetTexture(url, cmp, check, fail, timeOut);
         }
+
+        public void Get(string url, Dictionary<string, string> param, Action<string> actionResult, Action<string> actionFail = null)
+        {
+            HttpRestful.Instance.Get(url, param, actionResult, actionFail);
+        }
+
         public void Get(string url, Action<bool, string> actionResult)
         {
             HttpRestful.Instance.Get(url, actionResult);
@@ -99,6 +108,21 @@ namespace Script.ChomnFramework.Utility
         public void Get(string url, Action<string> actionResult, Action<string> actionFail=null)
         {
             Get(url, actionResult, actionFail, defaultTimeout);
+        }
+
+        public void Get(string url, Dictionary<string, string> param,Action<string> actionResult, Action<string> actionFail=null)
+        {
+            if (!url.EndsWith("?"))
+                url += "?";
+            foreach (var keyValuePair in param)
+            {
+                var key = keyValuePair.Key;
+                var value = keyValuePair.Value;
+                url += $"{key}={value}&";
+            }
+
+            url = url.Substring(0, url.Length - 1);
+            Get(url, actionResult, actionFail);
         }
 
         /// <summary>
