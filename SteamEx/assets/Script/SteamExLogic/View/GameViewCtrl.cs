@@ -1,6 +1,8 @@
 using QFramework;
 using Script.ChomnFramework;
+using Script.ChomnFramework.Utility;
 using Script.SteamExLogic.Command;
+using UnityEngine;
 
 namespace Script.SteamExLogic.View
 {
@@ -9,7 +11,8 @@ namespace Script.SteamExLogic.View
         public override void StartEx()
         {
             base.StartEx();
-            this.SendCommand(new GetUserInfoCmd("76561199546918606"));
+            //this.SendCommand(new GetUserInfoCmd("76561199546918606"));
+          
         }
     }
 }

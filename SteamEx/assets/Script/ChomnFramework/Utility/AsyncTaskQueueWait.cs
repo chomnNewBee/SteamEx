@@ -25,22 +25,22 @@ namespace Script.ChomnFramework.Utility
     }
     public class AsyncTaskQueueWait:IAsyncTaskQueueWait
     {
-        private Queue<Action<Action>> taskQueue = new Queue<Action<Action>>();
+        private Queue<Action<Action>> _taskQueue = new Queue<Action<Action>>();
 
         public void AddTask(Action<Action> action)
         {
-            taskQueue.Enqueue(action);
+            _taskQueue.Enqueue(action);
         }
 
         public void StartTask(Action onComplete = null)
         {
-            if (taskQueue.Count == 0)
+            if (_taskQueue.Count == 0)
             {
                 onComplete?.Invoke();
                 return;
             }
 
-            bool success = taskQueue.TryDequeue(out var action);
+            bool success = _taskQueue.TryDequeue(out var action);
             if (success)
             {
                 if (action != null)

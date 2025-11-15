@@ -26,26 +26,38 @@ namespace Script.ChomnFramework.Utility
     }
     public class AsyncTaskQueueNoWait : IAsyncTaskQueueNoWait
     {
-        private Queue<Action<Action>>  taskQueue = new Queue<Action<Action>>();
+        private Queue<Action<Action>> _taskQueue = new Queue<Action<Action>>();
+        private bool _isRunning = false;
+        
 
         public void AddTask(Action<Action> task)
         {
-            taskQueue.Enqueue(task);
+            
+            _taskQueue.Enqueue(task);
         }
 
         public void StartTask(Action onComplete = null)
         {
-            int cmpCnt = 0;
-            foreach (Action<Action> action in taskQueue)
+             int cmpCnt = 0;
+             if(_isRunning)
+                 return;
+             _isRunning = true;
+            foreach (var task in _taskQueue)
             {
-                action((() =>
+                task((() =>
                 {
                     cmpCnt++;
-                    if(cmpCnt == taskQueue.Count)
+                    if (cmpCnt == _taskQueue.Count)
+                    {
+                        _taskQueue.Clear();
+                        _isRunning = false;
                         onComplete?.Invoke();
+                    }
                 }));
             }
         }
    
     }
+
+    
 }
