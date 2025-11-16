@@ -15,14 +15,12 @@ namespace Script.SteamExLogic
             this.RegisterModel<ISDKModel>(new SDKModel());
             
             //以下是框架通用，换Architecture的话一起复制过去
-            //Application.targetFrameRate = 120;
-            QualitySettings.vSyncCount = 0;
-            UnityEngine.Application.targetFrameRate = 120;
             this.RegisterUtility<IJsonHelper>(new JsonEx());
             this.RegisterUtility<IHttpHelper>(new HttpHelpEx());
             this.RegisterUtility<ILocalStorage>(new LocalStorageEx());
             this.RegisterUtility<IAsyncTaskQueueWaitEX>(new AsyncTaskQueueWaitEX());
             this.RegisterUtility<IAsyncTaskQueueNoWaitEx>(new AsyncTaskQueueNoWaitEx());
+            this.RegisterUtility<IFPSEx>(new FPSExWithoutMono());  //第一次添加监听器的时候启用
         }
     }
 }

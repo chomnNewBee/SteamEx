@@ -20,10 +20,10 @@ namespace Script.ChomnFramework.Extend
         private int _PageCount = 0;
         private float _ScreenWidth = 1080;
         private float _ScreenHeight = 1920;
-        private float _StartPos = 0;
-        private float _EndPos = 0;
+        //private float _StartPos = 0;
+        //private float _EndPos = 0;
         private bool isLeft = false;
-        private bool isRunnig = false;
+        //private bool isRunnig = false;
         private bool isOnBorder = false;
       
 
